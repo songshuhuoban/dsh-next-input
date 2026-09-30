@@ -4,7 +4,7 @@
 
 插件直接沿用当前会话的模型和凭据，无需另填 API Key。
 
-**支持版本：** DSH **0.2.0-rc.2**，对应插件 **0.2.0**。
+**支持版本：** DSH **0.2.0-rc.2**，对应插件 **0.2.1**。
 
 [npm 包](https://www.npmjs.com/package/dsh-next-input) · [问题反馈](https://github.com/songshuhuoban/dsh-next-input/issues)
 
@@ -16,7 +16,7 @@
 2. 在 **包名或地址** 中输入：
 
    ```text
-   dsh-next-input@0.2.0
+   dsh-next-input@0.2.1
    ```
 
 3. 点击 **安装**。
@@ -25,7 +25,7 @@
 <details>
 <summary>查看图形界面安装示意</summary>
 
-![桌面安装步骤：左侧插件 → 添加插件 → 输入包名 → 安装](https://raw.githubusercontent.com/songshuhuoban/dsh-next-input/main/docs/images/install-gui.png)
+![桌面安装步骤：左侧插件 → 添加插件 → 输入包名 → 安装](https://raw.githubusercontent.com/songshuhuoban/dsh-next-input/v0.2.1/docs/images/install-gui.png)
 
 </details>
 
@@ -36,7 +36,7 @@
 使用 DSH **0.2.0-rc.2** 的 CLI，执行：
 
 ```sh
-dsh plugin --profile web add dsh-next-input@0.2.0 --registry=https://registry.npmjs.org/
+dsh plugin --profile web add dsh-next-input@0.2.1 --registry=https://registry.npmjs.org/
 ```
 
 安装完成后，重新启动该 Web 实例并刷新页面。
@@ -76,9 +76,9 @@ CLI 的 `web` 环境和桌面版分别管理插件。使用桌面版时，请按
 
 桌面版暂不自动更新插件。升级时，先在插件详情页卸载旧版，再通过 **添加插件** 安装新版本并启用。
 
-如果旧版 `0.1.0` 安装失败，可以返回编辑，将包名改为 `dsh-next-input@0.2.0` 后重新安装。插件 `0.1.0` 仅支持 DSH `0.1.7-rc.2`；插件 `0.2.0` 支持 DSH `0.2.0-rc.2`。
+如果旧版 `0.1.0` 安装失败，可以返回编辑，将包名改为 `dsh-next-input@0.2.1` 后重新安装。插件 `0.1.0` 仅支持 DSH `0.1.7-rc.2`；插件 `0.2.1` 支持 DSH `0.2.0-rc.2`。
 
-也可以从 [GitHub Release](https://github.com/songshuhuoban/dsh-next-input/releases/tag/v0.2.0) 下载预构建的 `dsh-next-input.tgz`，在桌面安装窗口中填写下载文件的完整路径后安装。
+也可以从 [GitHub Release](https://github.com/songshuhuoban/dsh-next-input/releases/tag/v0.2.1) 下载预构建的 `dsh-next-input.tgz`，在桌面安装窗口中填写下载文件的完整路径后安装。
 
 ### 建议如何生成
 
@@ -122,7 +122,7 @@ pnpm check
 npm pack
 ```
 
-构建产物为 `dsh-next-input-0.2.0.tgz`，可通过桌面插件页面安装。CLI Web 环境也可以在构建后执行 `dsh plugin --profile web add .` 安装本地目录。
+构建产物为 `dsh-next-input-0.2.1.tgz`，可通过桌面插件页面安装。CLI Web 环境也可以在构建后执行 `dsh plugin --profile web add .` 安装本地目录。
 
 Host 使用 `ctx.agents` 读取已完成回合，以 `ctx.llm.stream()` 发起独立辅助请求，沿用当前会话最近一个已完成请求的 provider/model。不附带原始工具输出、推理正文或主对话系统提示，不向主会话追加消息或启动 Agent。
 

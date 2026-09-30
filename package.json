@@ -1,6 +1,6 @@
 {
   "name": "dsh-next-input",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Suggest the next user reply in DeepSeek Harness and accept it with Tab.",
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
   "files": [
     "dist",
     "locale",
+    "docs/images/install-gui.png",
     "cordis.patch.yml",
     "README.md",
     "LICENSE"
