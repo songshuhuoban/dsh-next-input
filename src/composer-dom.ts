@@ -1,5 +1,5 @@
 /**
- * Small presentation adapter for the stock DSH 0.1.7 composer. The public
+ * Small presentation adapter for the stock DSH 0.2.0-rc.2 composer. The public
  * inputActions own edits; this adapter only borrows its placeholder and key
  * event surface. All selectors remain inside the slot's own composer card.
  */

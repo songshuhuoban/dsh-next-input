@@ -2,9 +2,9 @@
 
 为 DeepSeek Harness 的下一条用户输入生成建议：assistant 的回合全部结束、没有待处理输入时，在空输入框的 placeholder 中显示一条可能的回复。按 **Tab** 将建议填入草稿，之后仍由用户编辑或发送。
 
-本插件针对 **dsh 0.1.7-rc.2 / Cordis 4.0.4** 开发，包含 Host 和 Web/桌面客户端两半。该版本的配置、输入框接口与旧版有差异，请使用匹配的版本。
+本插件 **dsh-next-input 0.2.0** 针对 **DSH 0.2.0-rc.2 / Cordis 4.0.4** 开发，包含 Host 和 Web/桌面客户端两半。该版本的配置、输入框接口与旧版有差异，请使用匹配的版本。
 
-当前发布版本为 `0.1.0`，仅支持上述 Harness 版本；`0.2.x` 尚未适配。[源码与问题反馈](https://github.com/songshuhuoban/dsh-next-input) · [npm 包](https://www.npmjs.com/package/dsh-next-input)。
+旧版 `dsh-next-input@0.1.0` 仅支持 DSH `0.1.7-rc.2`，不支持当前 DSH `0.2.0-rc.2` 桌面版。[源码与问题反馈](https://github.com/songshuhuoban/dsh-next-input) · [npm 包](https://www.npmjs.com/package/dsh-next-input)。
 
 ## 使用行为
 
@@ -18,7 +18,7 @@
 
 ## 设置
 
-在 dsh 的 **设置 → 插件 → dsh-next-input → 配置** 中管理。沿用 dsh 的配置继承、字段重置、保存和版本冲突处理。
+在 dsh 的 **左侧「插件」 → dsh-next-input 插件详情 → 配置** 中管理。沿用 dsh 的配置继承、字段重置、保存和版本冲突处理。
 
 | 字段 | 默认值 | 含义 |
 | --- | --- | --- |
@@ -47,13 +47,13 @@
 
 ## 构建与安装
 
-通过 npm 包安装到匹配版本的 Web profile：
+桌面版直接在插件页面安装，无需 CLI：
 
-```powershell
-dsh plugin --profile web add dsh-next-input@0.1.0 --registry=https://registry.npmjs.org/
-```
+1. 打开左侧 **插件**，选择 **添加插件**。
+2. 输入 `dsh-next-input@0.2.0`，点击 **安装**。
+3. 安装完成后点击 **立即启用**。
 
-Desktop 使用自身的插件页面安装 `dsh-next-input@0.1.0`，或安装下方构建步骤生成的 `dsh-next-input-0.1.0.tgz`。CLI 的 `web` profile 与 Desktop 的插件环境分别管理；桌面环境也须匹配 dsh `0.1.7-rc.2`。
+如果之前安装 `0.1.0` 失败，可在失败的安装项中编辑为 `dsh-next-input@0.2.0` 后重试。如果已经安装旧版，先卸载旧版，再安装 `0.2.0`。
 
 从源码构建：
 
@@ -65,13 +65,21 @@ pnpm check
 npm pack
 ```
 
-Web profile 可安装构建后的本地目录：
+上述构建会生成 `dsh-next-input-0.2.0.tgz`，可在桌面插件页面安装本地包，再点击 **立即启用**。
+
+可选：使用匹配的 DSH `0.2.0-rc.2` CLI，将 npm 包安装到 Web profile：
+
+```powershell
+dsh plugin --profile web add dsh-next-input@0.2.0 --registry=https://registry.npmjs.org/
+```
+
+Web profile 也可安装构建后的本地目录：
 
 ```powershell
 dsh plugin --profile web add .
 ```
 
-包中的 `dsh.bundle.patch` 插入稳定的 `next-input` 插件条目；`./client` 和 `dsh.client` 元数据负责发现浏览器入口。安装后按目标 profile 的机制重新加载插件或重启，以刷新 manifest 和客户端图。
+包中的 `dsh.bundle.patch` 插入稳定的 `next-input` 插件条目；`./client` 和 `dsh.client` 元数据负责发现浏览器入口。CLI 的 Web profile 与 Desktop 的插件环境分别管理；Web 安装后按目标 profile 的机制重新加载插件或重启，以刷新 manifest 和客户端图。
 
 ## 实现与边界
 
@@ -79,7 +87,7 @@ Host 通过 `ctx.agents` 和会话公开日志读取已完成回合，以 `ctx.l
 
 通信使用 dsh 的 Connection carrier：Host 注册精确的 `/api/next-input/suggest` Fetch 路由，复用客户端现有 RPC 请求/响应信封。鉴权、桌面传输、取消及请求关联仍由 Connection 负责。
 
-客户端挂载在 `conversation.input.overlay` 扩展槽，状态来自现有 Session/Input hooks，建议插入走 `inputActions.captureInsertion()` / `insertText()` 的草稿版本检查。此版本没有公开的 placeholder/Tab 装饰接口，因此只有显示和按键使用限定在所属 composer card 内的 DOM 适配器，依赖以下 dsh 0.1.7 标记：
+客户端挂载在 `conversation.input.overlay` 扩展槽，状态来自现有 Session/Input hooks，建议插入走 `inputActions.captureInsertion()` / `insertText()` 的草稿版本检查。此版本没有公开的 placeholder/Tab 装饰接口，因此只有显示和按键使用限定在所属 composer card 内的 DOM 适配器，依赖以下 DSH 0.2 标记：
 
 ```text
 [data-composer-card]
@@ -92,6 +100,6 @@ Host 通过 `ctx.agents` 和会话公开日志读取已完成回合，以 `ctx.l
 
 ## 验证
 
-`pnpm check` 执行严格类型检查、并发/超时/取消测试、摘要与缓存测试、Host/LLM 协议测试、原生 Cordis 注册与卸载测试、React StrictMode/会话切换测试、输入框 DOM 适配测试、构建及发布文件检查。客户端产物以 dsh 的惰性 CommonJS factory 格式构建，并验证只使用平台提供的 React/UI 模块。
+`pnpm check` 执行严格类型检查、并发/超时/取消测试、摘要与缓存测试、Host/LLM 协议测试、原生 Cordis 注册与卸载测试、React StrictMode/会话切换测试、输入框 DOM 适配测试、官方安装器兼容性 gate 回归、构建及发布文件检查。客户端产物以 dsh 的惰性 CommonJS factory 格式构建，并验证只使用平台提供的 React/UI 模块。
 
 测试使用模拟模型和独立上下文，不更改正在运行的 dsh 环境。真实模型服务的延迟和模型回复质量需要在安装后验证。

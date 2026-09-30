@@ -34,7 +34,7 @@ const packOutput = execSync('npm pack --dry-run --ignore-scripts --json', {
   encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'],
 });
 const paths = new Set(JSON.parse(packOutput)[0].files.map((file) => file.path));
-for (const path of ['dist/index.js', 'dist/client.js', 'dist/types/index.d.ts', 'dist/types/client.d.ts', 'cordis.patch.yml', 'README.md', 'LICENSE']) {
+for (const path of ['dist/index.js', 'dist/client.js', 'dist/types/index.d.ts', 'dist/types/client.d.ts', 'cordis.patch.yml', 'locale/en.json', 'locale/zh.json', 'README.md', 'LICENSE']) {
   assert.ok(paths.has(path), `Missing publish artifact: ${path}`);
 }
 assert.ok(![...paths].some((path) => path.startsWith('tests/') || path.startsWith('node_modules/')));

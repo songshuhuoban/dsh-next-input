@@ -12,7 +12,7 @@ import { DEFAULT_CONFIG, RPC_ENDPOINT, type NextInputConfig, type SuggestionRequ
 export const name = 'next-input';
 export const inject = ['agents', 'llm', 'connection'];
 
-/** Config references integrate directly with the Harness 0.1.7 SettingsForms. */
+/** Config references integrate directly with the Harness 0.2.0 SettingsForms. */
 export const Config = z.object({
   enabled: z.boolean().default(DEFAULT_CONFIG.enabled).description('Suggest the next reply when the assistant finishes.').volatile(),
   maxRetries: z.number().step(1).min(0).max(10).default(DEFAULT_CONFIG.maxRetries).description('Additional attempts after a failed suggestion request.').volatile(),

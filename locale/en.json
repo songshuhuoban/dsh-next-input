@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Next Input",
+    "description": "Suggest the next user reply after the assistant finishes. Press Tab in an empty composer to accept."
+  }
+}
